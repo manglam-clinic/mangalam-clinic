@@ -40,6 +40,12 @@ max-width:100px;
 height:auto;
 margin:0 auto 15px auto;
 display:block;
+cursor:pointer;
+transition:transform 0.2s;
+}
+
+.logo:hover{
+transform:scale(1.1);
 }
 
 h2{
@@ -177,6 +183,17 @@ position:fixed;
 top:20px;
 left:20px;
 z-index:1000;
+font-size:25px !important;
+background:transparent !important;
+padding:8px 10px !important;
+margin:0 !important;
+box-shadow:none !important;
+text-shadow:2px 2px 6px rgba(0, 0, 0, 0.6);
+transition:transform 0.3s ease;
+}
+
+.back-button:hover{
+transform:scale(1.2);
 }
 
 .modal{
@@ -206,6 +223,30 @@ from{transform:translateY(-50px); opacity:0;}
 to{transform:translateY(0); opacity:1;}
 }
 
+@keyframes zoomIn{
+from{
+transform:scale(0.1);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+
+#profileModal .modal-content{
+animation:zoomIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+#profileModal{
+animation:fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn{
+from{background-color:rgba(0, 0, 0, 0);}
+to{background-color:rgba(0, 0, 0, 0.8);}
+}
+
 .modal-close{
 position:absolute;
 top:0px;
@@ -227,15 +268,15 @@ color:#e7f0ff;
 
 <body>
 
-<a href="index.html" class="btn back back-button">← Back to home</a>
+<a href="index.html" class="btn back back-button">←</a>
 
 <div class="card">
 
-<img src="Chandra.png" alt="Dr. Chandrakant Anand" class="logo">
+<img src="Chandra.png" alt="Dr. Chandrakant Anand" class="logo" onclick="openProfileModal()" style="cursor:pointer;">
 
 <h2>Dr. Chandrakant Anand</h2>
 
-<p><strong>Consultant Physician | Ayurvedic Integrative Medicine</strong></p>
+<p><strong>Consultant Physician</strong></p>
 
 <div class="specialties">
 
@@ -283,12 +324,19 @@ Dr. Chandrakant Anand is a BAMS graduate from Dr. R.M.L.A.U. and a Consultant Ph
 <div id="certificateModal" class="modal" onclick="closeCertificateModal(event)">
 <span class="modal-close" onclick="closeCertificateModal()">&times;</span>
 <img class="modal-content" src="DigitalDr.jpeg" alt="Medical Certificate">
+<p style="color:#f3f9ff; text-shadow:0px 0px 15px rgba(0,0,0,0.8); font-size:13px; line-height:1.5; margin:20px auto; max-width:800px; text-align:center; padding:15px;">यह Healthcare Professional ID (HPR ID) एक सरकारी मान्यता प्राप्त पहचान है, जो दर्शाती है कि यह डॉक्टर पंजीकृत और प्रमाणित स्वास्थ्य विशेषज्ञ है।<br></br>QR कोड स्कैन करके आप इनके रजिस्ट्रेशन और प्रोफाइल की जानकारी देख सकते हैं।</p>
 </div>
 
 <!-- Registration Modal -->
 <div id="registrationModal" class="modal" onclick="closeRegistrationModal(event)">
 <span class="modal-close" onclick="closeRegistrationModal()">&times;</span>
 <img class="modal-content" src="digital_doctor.jpg" alt="Medical Registration">
+<p style="color:#f3f9ff; text-shadow:0px 0px 15px rgba(0,0,0,0.8); font-size:13px; line-height:1.5; margin:20px auto; max-width:800px; text-align:center; padding:15px;">यह Digital Doctor ID (HPR ID) एक सरकारी प्रमाणित पहचान है, जो दर्शाती है कि यह स्वास्थ्य विशेषज्ञ पंजीकृत और विश्वसनीय है।<br></br>इस QR कोड को स्कैन करके आप डॉक्टर की योग्यता और रजिस्ट्रेशन विवरण देख सकते हैं।</p>
+</div>
+
+<!-- Profile Modal -->
+<div id="profileModal" class="modal" onclick="closeProfileModal(event)">
+<img class="modal-content" src="Chandra_full.jpeg" alt="Dr. Chandrakant Anand Full Profile">
 </div>
 
 <!-- Contact Modal -->
@@ -305,6 +353,15 @@ Dr. Chandrakant Anand is a BAMS graduate from Dr. R.M.L.A.U. and a Consultant Ph
 </div>
 
 <script>
+function openProfileModal(){
+document.getElementById("profileModal").style.display="block";
+}
+
+function closeProfileModal(event){
+if(event && event.target.id !== "profileModal") return;
+document.getElementById("profileModal").style.display="none";
+}
+
 function openCertificateModal(){
 document.getElementById("certificateModal").style.display="block";
 }
@@ -334,6 +391,10 @@ document.getElementById("contactModal").style.display="none";
 
 // Close modal when clicking outside the image
 window.onclick=function(event){
+var profileModal=document.getElementById("profileModal");
+if(event.target===profileModal){
+profileModal.style.display="none";
+}
 var modal=document.getElementById("certificateModal");
 if(event.target===modal){
 modal.style.display="none";
