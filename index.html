@@ -26,7 +26,7 @@ position:relative;
 z-index:1;
 background:linear-gradient(135deg, rgba(255, 255, 255, 0.4) 0%, rgba(255, 255, 255, 0.1) 100%);
 width:300px;
-height:600px;
+min-height:600px;
 margin:auto;
 padding:60px;
 border-radius:20px;
@@ -83,6 +83,53 @@ background:rgba(73, 35, 35, 0.75);
 background:rgba(60, 43, 82, 0.75);
 }
 
+.follow-us-section {
+margin-top: 30px;
+padding-top: 20px;
+border-top: 1.5px solid rgba(255, 255, 255, 0.322);
+}
+
+.follow-us-section h3 {
+color: #8f8f8f;
+font-size: 12px;
+font-weight: bold;
+margin: 0 0 18px 0;
+text-shadow: none;
+letter-spacing: 1px;
+}
+
+.social-buttons {
+display: flex;
+justify-content: center;
+gap: 30px;
+flex-wrap: wrap;
+}
+
+.social-btn {
+width: 30px;
+height: 30px;
+border-radius: 22%;
+background: rgba(167, 167, 167, 0.267);
+display: flex;
+align-items: center;
+justify-content: center;
+text-decoration: none;
+color: #000;
+transition: transform 0.3s ease, background 0.3s ease;
+border: 1.5px solid rgba(255, 255, 255, 0.5);
+}
+
+.social-btn:hover {
+transform: scale(1.2);
+background: rgba(255, 255, 255, 0.5);
+}
+
+.social-btn svg {
+width: 20px;
+height: 20px;
+fill: currentColor;
+}
+
 </style>
 
 </head>
@@ -116,7 +163,20 @@ Clinic Location
 href="about_doctor.html">
 About Doctor
 </a>
-
+<div class="follow-us-section">
+<h3>FOLLOW US</h3>
+<div class="social-buttons">
+ <a href="https://youtube.com/@mangalamclinic?si=iCiWKtObbt_pQFHz" class="social-btn" target="_blank" title="YouTube">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+ </a>
+ <a href="https://www.instagram.com/_mangalam_clinic_?igsh=dTBkam5qdTY2M3dq" class="social-btn" target="_blank" title="Instagram">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 0C8.74 0 8.333.015 7.053.072 5.775.132 4.905.333 4.217.63c-.688.297-1.272.702-1.855 1.285-.583.583-.988 1.167-1.285 1.855-.297.688-.498 1.558-.557 2.836C.008 8.333 0 8.74 0 12s.015 3.667.072 4.947c.06 1.277.261 2.148.558 2.837.297.687.702 1.271 1.285 1.854.583.583 1.167.988 1.855 1.285.689.297 1.559.498 2.837.558C8.333 23.988 8.74 24 12 24s3.667-.015 4.947-.072c1.277-.06 2.148-.261 2.837-.558.687-.297 1.271-.702 1.854-1.285.583-.583.988-1.167 1.285-1.855.297-.689.498-1.559.558-2.837.06-1.28.072-1.687.072-4.947s-.015-3.667-.072-4.947c-.06-1.277-.261-2.148-.558-2.837-.297-.687-.702-1.271-1.285-1.854-.583-.583-1.167-.988-1.855-1.285-.689-.297-1.559-.498-2.837-.558C15.667.008 15.26 0 12 0zm0 2.16c3.203 0 3.585.009 4.849.07 1.171.055 1.805.249 2.227.415.56.217.96.477 1.382.896.419.42.679.822.896 1.381.166.422.36 1.057.413 2.227.061 1.264.07 1.646.07 4.849s-.009 3.585-.07 4.849c-.055 1.171-.249 1.805-.415 2.227-.217.56-.477.96-.896 1.382-.42.419-.822.679-1.381.896-.422.166-1.056.36-2.227.413-1.264.061-1.646.07-4.849.07s-3.585-.009-4.849-.07c-1.171-.055-1.805-.249-2.227-.415-.56-.217-.96-.477-1.382-.896-.419-.42-.679-.822-.896-1.381-.166-.422-.36-1.057-.413-2.227-.061-1.264-.07-1.646-.07-4.849s.009-3.585.07-4.849c.055-1.171.249-1.805.415-2.227.217-.56.477-.96.896-1.382.42-.419.822-.679 1.381-.896.422-.166 1.057-.36 2.227-.413 1.264-.061 1.646-.07 4.849-.07l-.003-.007zm4.771 2.482a1.305 1.305 0 100 2.61 1.305 1.305 0 000-2.61zM12 6a6 6 0 100 12 6 6 0 000-12zm0 2.16a3.84 3.84 0 110 7.68 3.84 3.84 0 010-7.68z"/></svg>
+</a>
+<a href="https://www.facebook.com/share/1DcEbgYupr/" class="social-btn" target="_blank" title="Facebook">
+<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+</a>
+</div>
+</div>
 </div>
 
 </body>
