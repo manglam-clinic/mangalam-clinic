@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Book Appointment - Mangalam Clinic</title>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <style>
+        body {
+            font-family: Arial;
+            background: linear-gradient(135deg, rgba(93, 193, 226, 0.6) 0%, rgba(38, 44, 46, 0.2) 50%, rgba(42, 87, 100, 0.8) 100%),
+                url('DNA_BG.gif') center/cover no-repeat fixed;
+            min-height: 100vh;
+            text-align: center;
+            padding-top: 40px;
+            margin: 0;
+            position: relative;
+        }
+
+        .card {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.25);
+            width: 420px;
+            margin: auto;
+            padding: 40px 30px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2), inset 0 1px 1px rgba(255, 255, 255, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .logo {
+            max-width: 80px;
+            height: auto;
+            margin: 0 auto 15px auto;
+            display: block;
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .logo:hover {
+            transform: scale(1.1);
+        }
+
+        h1 {
+            margin-bottom: 5px;
+            margin-top: 0;
+            color: #412b17;
+            text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+            font-size: 24px;
+        }
+
+        h2 {
+            margin: 8px 0;
+            color: #ffffff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: 16px;
+            font-weight: normal;
+        }
+
+        p {
+            margin: 8px 0;
+            color: #ffffff;
+            text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8);
+            font-size: 12px;
+            line-height: 1.4;
+        }
+
+        .info-box {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: left;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1), inset 0 1px 1px rgba(255, 255, 255, 0.3);
+        }
+
+        .info-box h3 {
+            margin: 0 0 8px 0;
+            color: #0d47a1;
+            font-size: 13px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-box p {
+            margin: 3px 0;
+            font-size: 11px;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            color: #ffffff;
+            font-weight: bold;
+            font-size: 12px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .form-group label .required {
+            color: #ff4444;
+        }
+
+        .form-group input[type="text"],
+        .form-group input[type="tel"],
+        .form-group input[type="date"],
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 6px;
+            font-size: 12px;
+            font-family: Arial, sans-serif;
+            background: rgba(255, 255, 255, 0.9);
+            box-sizing: border-box;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input[type="text"]:focus,
+        .form-group input[type="tel"]:focus,
+        .form-group input[type="date"]:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #0d47a1;
+            box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.2);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+        }
+
+        .radio-option input[type="radio"] {
+            margin-right: 8px;
+            cursor: pointer;
+            accent-color: #0d47a1;
+        }
+
+        .radio-option label {
+            margin: 0;
+            cursor: pointer;
+            font-weight: normal;
+            color: #ffffff;
+            font-size: 12px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .success-message {
+            display: none;
+            background: rgba(16, 185, 129, 0.2);
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border-left: 4px solid #10b981;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            font-size: 12px;
+        }
+
+        .error-message {
+            display: none;
+            background: rgba(239, 68, 68, 0.2);
+            color: #ffffff;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            border-left: 4px solid #ef4444;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+            font-size: 12px;
+        }
+
+        .loading {
+            display: none;
+            text-align: center;
+            color: #ffffff;
+            font-size: 12px;
+            margin: 10px 0;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .success-details {
+            display: none;
+            background: rgba(255, 255, 255, 0.15);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+        }
+
+        .success-details h3 {
+            color: #10b981;
+            margin-top: 0;
+            font-size: 14px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .success-details p {
+            margin: 5px 0;
+            font-size: 11px;
+            color: #ffffff;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 12px;
+            cursor: pointer;
+            transition: transform 0.2s;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .btn:hover {
+            transform: scale(1.02);
+        }
+
+        .btn-submit {
+            background: rgba(13, 71, 161, 0.85);
+            color: white;
+        }
+
+        .btn-clear {
+            background: rgba(100, 116, 139, 0.75);
+            color: white;
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-top: 15px;
+            background: rgba(100, 116, 139, 0.75);
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            font-size: 12px;
+            font-weight: bold;
+            border-radius: 6px;
+            transition: transform 0.2s;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .back-link:hover {
+            transform: scale(1.02);
+        }
+
+        @media (max-width: 600px) {
+            .card {
+                width: 95%;
+                padding: 30px 20px;
+            }
+
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <img src="Mangalam_Logo.png" alt="Mangalam Clinic Logo" class="logo">
+        <h1>Mangalam Clinic</h1>
+        <h2>Dr. Chandrakant Anand (BAMS)</h2>
+        <p>Consultant Physician</p>
+
+        <div class="info-box">
+            <h3>📞 Contact:</h3>
+            <p>+91 9919454672</p>
+        </div>
+
+        <div class="success-message" id="successMessage">
+            ✓ Your appointment has been submitted successfully!
+        </div>
+        <div class="error-message" id="errorMessage"></div>
+        <div class="loading" id="loading">Processing your booking...</div>
+
+        <div class="success-details" id="successDetails">
+            <h3>✓ Appointment Details Submitted</h3>
+            <div id="detailsList"></div>
+        </div>
+
+        <form id="appointmentForm">
+            <div class="form-group">
+                <label for="patientName">Patient Name <span class="required">*</span></label>
+                <input type="text" id="patientName" name="patientName" placeholder="Your name" required>
+            </div>
+
+            <div class="form-group">
+                <label for="age">Age <span class="required">*</span></label>
+                <input type="text" id="age" name="age" placeholder="Your age" required>
+            </div>
+
+            <div class="form-group">
+                <label>Sex <span class="required">*</span></label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="male" name="sex" value="Male" required>
+                        <label for="male">Male</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="female" name="sex" value="Female" required>
+                        <label for="female">Female</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="prefer" name="sex" value="Prefer not to say" required>
+                        <label for="prefer">Prefer not to say</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="problem">Problem <span class="required">*</span></label>
+                <textarea id="problem" name="problem" placeholder="Describe your problem" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <input type="text" id="address" name="address" placeholder="Your address">
+            </div>
+
+            <div class="form-group">
+                <label for="mobno">Mobile No. <span class="required">*</span></label>
+                <input type="tel" id="mobno" name="mobno" placeholder="Your mobile number" required>
+            </div>
+
+            <div class="form-group">
+                <label>Preferred Time <span class="required">*</span></label>
+                <div class="radio-group">
+                    <div class="radio-option">
+                        <input type="radio" id="morning" name="preferredTime" value="Morning (9:00 am - 12:00 pm)" required>
+                        <label for="morning">Morning (9:00 am - 12:00 pm)</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="afternoon" name="preferredTime" value="Afternoon (12:00 pm - 4:00 pm)" required>
+                        <label for="afternoon">Afternoon (12:00 pm - 4:00 pm)</label>
+                    </div>
+                    <div class="radio-option">
+                        <input type="radio" id="evening" name="preferredTime" value="Evening (4:00 pm - 8:00 pm)" required>
+                        <label for="evening">Evening (4:00 pm - 8:00 pm)</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="date">Appointment Date <span class="required">*</span></label>
+                <input type="date" id="date" name="date" required>
+            </div>
+
+            <div class="button-group">
+                <button type="submit" class="btn btn-submit">Submit</button>
+                <button type="reset" class="btn btn-clear">Clear</button>
+            </div>
+
+            <a href="index.html" class="back-link">← Back to Home</a>
+        </form>
+    </div>
+
+    <script>
+        // Initialize EmailJS
+        emailjs.init('sA4Qulw4Ro8FPui9M');
+
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const loading = document.getElementById('loading');
+            const successMessage = document.getElementById('successMessage');
+            const successDetails = document.getElementById('successDetails');
+            const detailsList = document.getElementById('detailsList');
+            const errorMessage = document.getElementById('errorMessage');
+            const form = document.getElementById('appointmentForm');
+
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            successDetails.style.display = 'none';
+            loading.style.display = 'block';
+
+            // Get form data
+            const appointmentData = {
+                patientName: document.getElementById('patientName').value,
+                age: document.getElementById('age').value,
+                sex: document.querySelector('input[name="sex"]:checked').value,
+                problem: document.getElementById('problem').value,
+                address: document.getElementById('address').value,
+                mobno: document.getElementById('mobno').value,
+                preferredTime: document.querySelector('input[name="preferredTime"]:checked').value,
+                date: document.getElementById('date').value,
+            };
+
+            // Send email via EmailJS
+            emailjs.send('service_1k7f5zc', 'template_06mnrrp', {
+                email: 'manglamclinic000@gmail.com',
+                patient_name: appointmentData.patientName,
+                patient_age: appointmentData.age,
+                patient_sex: appointmentData.sex,
+                patient_phone: appointmentData.mobno,
+                patient_address: appointmentData.address,
+                patient_problem: appointmentData.problem,
+                preferred_time: appointmentData.preferredTime,
+                appointment_date: appointmentData.date
+            })
+            .then(function(response) {
+                console.log('✓ Email sent!', response);
+                
+                // Display appointment details
+                let detailsHtml = `
+                    <p><strong>Name:</strong> ${appointmentData.patientName}</p>
+                    <p><strong>Age:</strong> ${appointmentData.age}</p>
+                    <p><strong>Sex:</strong> ${appointmentData.sex}</p>
+                    <p><strong>Mobile:</strong> ${appointmentData.mobno}</p>
+                    <p><strong>Address:</strong> ${appointmentData.address || 'Not provided'}</p>
+                    <p><strong>Problem:</strong> ${appointmentData.problem}</p>
+                    <p><strong>Time:</strong> ${appointmentData.preferredTime}</p>
+                    <p><strong>Date:</strong> ${appointmentData.date}</p>
+                `;
+
+                detailsList.innerHTML = detailsHtml;
+
+                // Save to localStorage
+                localStorage.setItem('lastAppointment', JSON.stringify(appointmentData));
+
+                // Show success UI
+                loading.style.display = 'none';
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                successDetails.style.display = 'block';
+                
+                successDetails.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            })
+            .catch(function(error) {
+                console.error('Error:', error);
+                loading.style.display = 'none';
+                errorMessage.innerHTML = `
+                    <strong>⚠️ Error:</strong> Could not send appointment. Please check your internet connection and try again.
+                `;
+                errorMessage.style.display = 'block';
+            });
+        });
+
+        // Set minimum date to today
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+    </script>
+</body>
+
+</html>
+
+    <script>
+        // Initialize EmailJS (Replace YOUR_PUBLIC_KEY with your actual public key)
+        emailjs.init('sA4Qulw4Ro8FPui9M'); // Get this from EmailJS dashboard
+
+        document.getElementById('appointmentForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const loading = document.getElementById('loading');
+            const successMessage = document.getElementById('successMessage');
+            const successDetails = document.getElementById('successDetails');
+            const detailsList = document.getElementById('detailsList');
+            const errorMessage = document.getElementById('errorMessage');
+            const form = document.getElementById('appointmentForm');
+
+            // Hide previous messages
+            successMessage.style.display = 'none';
+            errorMessage.style.display = 'none';
+            successDetails.style.display = 'none';
+            loading.style.display = 'block';
+            loading.textContent = 'Submitting your appointment and sending to doctor...';
+
+            // Get form data
+            const appointmentData = {
+                patientName: document.getElementById('patientName').value,
+                age: document.getElementById('age').value,
+                sex: document.querySelector('input[name="sex"]:checked').value,
+                problem: document.getElementById('problem').value,
+                address: document.getElementById('address').value,
+                mobno: document.getElementById('mobno').value,
+                preferredTime: document.querySelector('input[name="preferredTime"]:checked').value,
+                date: document.getElementById('date').value,
+                submittedAt: new Date().toLocaleString(),
+            };
+
+            // Send email via EmailJS (automatically to doctor)
+            emailjs.send('service_1k7f5zc', 'template_06mnrrp', {
+                email: 'manglamclinic000@gmail.com',
+                patient_name: appointmentData.patientName,
+                patient_age: appointmentData.age,
+                patient_sex: appointmentData.sex,
+                patient_phone: appointmentData.mobno,
+                patient_address: appointmentData.address,
+                patient_problem: appointmentData.problem,
+                preferred_time: appointmentData.preferredTime,
+                appointment_date: appointmentData.date
+            })
+            .then(function(response) {
+                console.log('✓ Email sent successfully!', response);
+                
+                // Display appointment details
+                let detailsHtml = `
+                    <p><strong>📝 Name:</strong> ${appointmentData.patientName}</p>
+                    <p><strong>🎂 Age:</strong> ${appointmentData.age}</p>
+                    <p><strong>👤 Sex:</strong> ${appointmentData.sex}</p>
+                    <p><strong>📱 Mobile:</strong> ${appointmentData.mobno}</p>
+                    <p><strong>🏠 Address:</strong> ${appointmentData.address}</p>
+                    <p><strong>🏥 Problem:</strong> ${appointmentData.problem}</p>
+                    <p><strong>⏰ Preferred Time:</strong> ${appointmentData.preferredTime}</p>
+                    <p><strong>📅 Date:</strong> ${appointmentData.date}</p>
+                    <hr style="margin: 10px 0; border: none; border-top: 1px solid #ddd;">
+                    <p style="color: #10b981; font-weight: bold;">✓ Email sent to doctor successfully!</p>
+                `;
+
+                detailsList.innerHTML = detailsHtml;
+
+                // Save to localStorage
+                localStorage.setItem('lastAppointment', JSON.stringify(appointmentData));
+
+                // Show success UI
+                loading.style.display = 'none';
+                form.style.display = 'none';
+                successMessage.style.display = 'block';
+                successDetails.style.display = 'block';
+                
+                successDetails.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            })
+            .catch(function(error) {
+                console.error('Failed to send email:', error);
+                loading.style.display = 'none';
+                errorMessage.innerHTML = `
+                    <strong>⚠️ Error:</strong> Could not send email automatically.
+                    <p style="margin-top: 10px; text-align: left; font-size: 12px;">
+                        This usually means EmailJS is not configured. Please:
+                        <br>1. Check that your Public Key is set correctly in the code
+                        <br>2. Make sure your email template exists in EmailJS
+                        <br>3. Try again
+                    </p>
+                `;
+                errorMessage.style.display = 'block';
+                errorMessage.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            });
+        });
+
+        // Set minimum date to today
+        const dateInput = document.getElementById('date');
+        const today = new Date().toISOString().split('T')[0];
+        dateInput.setAttribute('min', today);
+    </script>
+</body>
+
+</html>
